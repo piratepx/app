@@ -1,0 +1,10 @@
+@tailwind base;
+
+body {
+  @apply font-mono text-gray-900 tracking-normal leading-normal antialiased;
+  @apply bg-gray-100;
+}
+
+@tailwind components;
+
+@tailwind utilities;

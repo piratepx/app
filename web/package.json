@@ -1,0 +1,39 @@
+{
+  "name": "piratepx-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Just a little analytics insight for your personal or indie project",
+  "homepage": "https://app.piratepx.com",
+  "bugs": "https://github.com/piratepx/app/issues",
+  "license": "MIT",
+  "repository": "piratepx/app",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "lint": "run-p lint:*",
+    "lint:format": "prettier --check .",
+    "lint:format:fix": "prettier --write .",
+    "lint:quality": "eslint --ext .js,.vue .",
+    "lint:quality:fix": "eslint --ext .js,.vue --fix ."
+  },
+  "dependencies": {
+    "tailwindcss": "^1.8.10",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-beta.12",
+    "vuex": "^4.0.0-beta.4"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.0",
+    "autoprefixer": "^9.8.6",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-vue": "^7.0.0-beta.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.1.2",
+    "vite": "^1.0.0-rc.4"
+  },
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
+  }
+}

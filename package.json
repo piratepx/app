@@ -1,0 +1,62 @@
+{
+  "name": "piratepx-app",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Just a little analytics insight for your personal or indie project",
+  "homepage": "https://app.piratepx.com",
+  "bugs": "https://github.com/piratepx/app/issues",
+  "license": "MIT",
+  "repository": "piratepx/app",
+  "scripts": {
+    "build": "cd web && npm install && npm run build",
+    "dev": "run-p dev:api dev:web",
+    "dev:api": "fastify start --watch --ignore-watch=web --log-level=info --pretty-logs ./api/app.js",
+    "dev:db:create": "docker-compose exec postgres createdb -U postgres piratepx_development",
+    "dev:db:drop": "docker-compose exec postgres dropdb -U postgres piratepx_development",
+    "dev:db:psql": "docker-compose exec postgres psql -U postgres",
+    "dev:web": "cd web && npm run dev",
+    "knex": "node -r ./api/initializers ./node_modules/.bin/knex --knexfile ./api/db/config.js",
+    "lint": "run-p lint:*",
+    "lint:format": "prettier --check .",
+    "lint:format:fix": "prettier --write .",
+    "lint:quality": "eslint .",
+    "lint:quality:fix": "eslint --fix .",
+    "release": "release-it",
+    "start": "fastify start --log-level=info ./api/app.js"
+  },
+  "dependencies": {
+    "@bugsnag/js": "^7.3.5",
+    "@vvo/tzdb": "^5.5.2",
+    "cron": "^1.7.2",
+    "dotenv": "^8.2.0",
+    "fastify": "^3.4.1",
+    "fastify-autoload": "^3.1.0",
+    "fastify-bearer-auth": "^5.0.2",
+    "fastify-cli": "^2.2.0",
+    "fastify-compress": "^3.3.0",
+    "fastify-plugin": "^2.3.4",
+    "fastify-static": "^3.2.0",
+    "knex": "^0.21.5",
+    "luxon": "^1.25.0",
+    "module-alias": "^2.2.2",
+    "objection": "^2.2.3",
+    "pg": "^8.3.3"
+  },
+  "devDependencies": {
+    "@release-it/bumper": "^2.0.0",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.22.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.1.2",
+    "release-it": "^14.0.3"
+  },
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
+  },
+  "_moduleAliases": {
+    "@": "api"
+  }
+}

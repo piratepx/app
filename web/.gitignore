@@ -1,0 +1,12 @@
+# npm
+/node_modules
+
+# Config
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+
+# Build
+/dist
