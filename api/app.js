@@ -15,7 +15,7 @@ module.exports = async (fastify, opts) => {
 
   fastify.register(require('fastify-compress'), {
     zlibOptions: {
-      level: zlib.constants.Z_DEFAULT_COMPRESSION,
+      level: zlib.constants.Z_BEST_SPEED,
     },
   })
 
