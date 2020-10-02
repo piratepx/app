@@ -18,13 +18,17 @@
     </p>
     <div>
       <h3 class="font-semibold mb-1">Project ID</h3>
-      <div class="bg-gray-300 p-2 select-all whitespace-no-wrap overflow-x-auto">
+      <div
+        class="bg-gray-300 p-2 select-all whitespace-no-wrap overflow-x-auto"
+      >
         {{ currentProject.id }}
       </div>
     </div>
     <div>
       <h3 class="font-semibold mb-1">Project Secret</h3>
-      <div class="bg-gray-300 p-2 select-all whitespace-no-wrap overflow-x-auto">
+      <div
+        class="bg-gray-300 p-2 select-all whitespace-no-wrap overflow-x-auto"
+      >
         {{ currentProject.secret }}
       </div>
     </div>
