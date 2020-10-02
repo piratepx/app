@@ -8,7 +8,11 @@ module.exports = fp(async (fastify) => {
   }
 
   fastify.addHook('onRequest', async (request, reply) => {
-    if (request.protocol === 'https') {
+    if (request.raw.socket.encrypted) {
+      return
+    }
+
+    if (request.headers['x-forwarded-proto']?.substring(0, 5) === 'https') {
       return
     }
 
