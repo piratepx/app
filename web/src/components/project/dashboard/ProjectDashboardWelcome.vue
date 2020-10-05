@@ -19,7 +19,7 @@
     <div>
       <h3 class="font-semibold mb-1">Project ID</h3>
       <div
-        class="bg-gray-300 p-2 select-all whitespace-no-wrap overflow-x-auto"
+        class="bg-gray-300 border-2 border-gray-400 px-3 py-1 cursor-text select-all whitespace-no-wrap overflow-x-auto"
       >
         {{ currentProject.id }}
       </div>
@@ -27,7 +27,7 @@
     <div>
       <h3 class="font-semibold mb-1">Project Secret</h3>
       <div
-        class="bg-gray-300 p-2 select-all whitespace-no-wrap overflow-x-auto"
+        class="bg-gray-300 border-2 border-gray-400 px-3 py-1 cursor-text select-all whitespace-no-wrap overflow-x-auto"
       >
         {{ currentProject.secret }}
       </div>
