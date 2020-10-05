@@ -7,7 +7,7 @@
       login. Simply visit this URL whenever you want to access your project.
     </p>
     <p>
-      Now, you’re ready to begin adding 🏴‍☠️px to your project!
+      Now, you’re ready to begin adding piratepx to your project!
       <a
         href="https://www.piratepx.com/readme"
         target="_blank"
