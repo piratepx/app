@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-lg mx-auto bg-gray-200 p-5 space-y-5">
-    <h2 class="text-lg font-semibold">Welcome! A few things to start...</h2>
+    <h2 class="text-lg font-semibold text-center">Welcome! A few things to start...</h2>
     <p>
       Copy or bookmark this page! We’ve auto-generated a secret for you that’s
       included in the URL, instead of using a traditional email + password
