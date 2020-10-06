@@ -4,7 +4,7 @@
       <li>
         <router-link
           :to="`/${currentProject.secret}/settings`"
-          class="text-gray-400 hover:text-gray-900 p-3"
+          class="text-gray-600 hover:text-gray-900 p-3"
           active-class="text-gray-900"
           title="Settings"
         >
