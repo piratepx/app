@@ -10,6 +10,9 @@
       <project-dashboard-welcome :current-project="currentProject" />
     </template>
     <template v-if="records.size">
+      <h1 class="text-xl font-semibold text-gray-600 text-center truncate mb-1">
+        {{ currentProject.name }}
+      </h1>
       <project-dashboard-header
         :current-project="currentProject"
         :dates="dates"
