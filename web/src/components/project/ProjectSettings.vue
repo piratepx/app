@@ -6,7 +6,16 @@
         <span>Back to Dashboard</span>
       </base-button>
     </div>
+    <project-form
+      :record="record"
+      :status="status"
+      :time-zones="timeZones"
+      :time-zones-status="timeZonesStatus"
+      @update="$emit('update', $event)"
+      @save="$emit('save')"
+    />
     <div class="space-y-5">
+      <h2 class="text-lg font-semibold text-center">Credentials</h2>
       <div>
         <div class="mb-1">Project ID</div>
         <div
@@ -23,14 +32,6 @@
           {{ record.secret }}
         </div>
       </div>
-      <project-form
-        :record="record"
-        :status="status"
-        :time-zones="timeZones"
-        :time-zones-status="timeZonesStatus"
-        @update="$emit('update', $event)"
-        @save="$emit('save')"
-      />
     </div>
     <div class="space-y-5">
       <h2 class="text-lg font-semibold text-center">Shared Access</h2>
