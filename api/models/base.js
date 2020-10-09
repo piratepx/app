@@ -46,11 +46,11 @@ class BaseModel extends Model {
     const values = this.values(fieldOrFields)
     const fields = Object.keys(values)
 
-    const everyUndefined = Object.values(values).every(
-      (value) => value === undefined
+    const everyValueEmpty = Object.values(values).every(
+      (value) => value === undefined || value === null
     )
 
-    if (everyUndefined) {
+    if (everyValueEmpty) {
       return true
     }
 
