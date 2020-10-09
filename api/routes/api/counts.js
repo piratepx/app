@@ -5,7 +5,7 @@ const Count = require('@/models/count')
 const pick = require('@/lib/pick')
 
 module.exports = async (fastify) => {
-  fastify.register(authenticateProject)
+  fastify.register(authenticateProject, { allowShared: true })
 
   fastify.addSchema({
     $id: 'count',

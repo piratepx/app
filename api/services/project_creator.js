@@ -1,5 +1,4 @@
-const crypto = require('crypto')
-
+const generateSecret = require('@/services/generate_secret')
 const pick = require('@/lib/pick')
 const Project = require('@/models/project')
 const UserCreator = require('@/services/user_creator')
@@ -8,16 +7,8 @@ class ProjectCreator {
   constructor({ data, transaction = null }) {
     this.data = pick(data, ['name', 'time_zone'])
     this.transaction = transaction
-    this.userData = pick(data.user, ['email'])
-  }
 
-  static generateSecret() {
-    return crypto
-      .randomBytes(48)
-      .toString('base64')
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=/g, '')
+    this.userData = pick(data.user, ['email'])
   }
 
   createUser() {
@@ -52,7 +43,7 @@ class ProjectCreator {
       .insert({
         ...this.data,
         user_id: user.id,
-        secret: this.constructor.generateSecret(),
+        secret: generateSecret(),
       })
       .returning('*')
 

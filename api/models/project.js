@@ -56,6 +56,10 @@ class Project extends BaseModel {
           type: 'string',
           maxLength: 255,
         },
+        shared_secret: {
+          type: ['string', 'null'],
+          maxLength: 255,
+        },
         created_at: {
           type: 'string',
           format: 'date-time',
@@ -71,6 +75,7 @@ class Project extends BaseModel {
 
   async beforeSaveValidation(opt) {
     await this.validateUniqueness('secret', opt)
+    await this.validateUniqueness('shared_secret', opt)
   }
 }
 

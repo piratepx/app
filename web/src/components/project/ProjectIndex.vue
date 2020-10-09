@@ -1,6 +1,6 @@
 <template>
   <the-layout>
-    <template v-if="currentProject" #nav>
+    <template v-if="currentProject && !currentProject.is_shared" #nav>
       <li>
         <router-link
           :to="`/${currentProject.secret}/settings`"

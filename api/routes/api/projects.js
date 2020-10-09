@@ -13,19 +13,40 @@ module.exports = async (fastify) => {
     properties: {
       project: {
         type: 'object',
-        properties: {
-          ...pick(Project.jsonSchema.properties, [
-            'id',
-            'name',
-            'time_zone',
-            'secret',
-            'created_at',
-            'updated_at',
-          ]),
-          user: {
-            type: 'object',
-            properties: {
-              ...pick(User.jsonSchema.properties, ['email']),
+        if: {
+          properties: {
+            is_shared: { const: true },
+          },
+          required: ['is_shared'],
+        },
+        then: {
+          properties: {
+            ...pick(Project.jsonSchema.properties, [
+              'id',
+              'name',
+              'time_zone',
+              'created_at',
+              'updated_at',
+            ]),
+            is_shared: { type: 'boolean' },
+          },
+        },
+        else: {
+          properties: {
+            ...pick(Project.jsonSchema.properties, [
+              'id',
+              'name',
+              'time_zone',
+              'secret',
+              'shared_secret',
+              'created_at',
+              'updated_at',
+            ]),
+            user: {
+              type: 'object',
+              properties: {
+                ...pick(User.jsonSchema.properties, ['email']),
+              },
             },
           },
         },
@@ -34,7 +55,7 @@ module.exports = async (fastify) => {
   })
 
   fastify.register(async (fastify) => {
-    fastify.register(authenticateProject)
+    fastify.register(authenticateProject, { allowShared: true })
 
     fastify.get(
       '/projects/current',
@@ -51,70 +72,70 @@ module.exports = async (fastify) => {
         return { project: request.currentProject }
       }
     )
+  })
 
-    fastify.register(async (fastify) => {
-      fastify.decorateRequest('project')
+  fastify.register(async (fastify) => {
+    fastify.register(authenticateProject)
 
-      fastify.addHook('preHandler', async (request) => {
-        const id = request.params.id
+    fastify.decorateRequest('project')
 
-        if (id !== request.currentProject.id) {
-          throw new AppError(403, 'Only the authorized project can be updated')
-        }
+    fastify.addHook('preHandler', async (request) => {
+      const id = request.params.id
 
-        request.project = await Project.query()
-          .withGraphFetched('user')
-          .findOne({ id })
-          .throwIfNotFound()
-      })
+      if (id !== request.currentProject.id) {
+        throw new AppError(403, 'Only the authorized project can be updated')
+      }
 
-      fastify.put(
-        '/projects/:id',
-        {
-          schema: {
-            params: {
-              ...pick(Project.jsonSchema.properties, ['id']),
-            },
-            body: {
-              type: 'object',
-              properties: {
-                project: {
-                  type: 'object',
-                  properties: {
-                    ...pick(Project.jsonSchema.properties, [
-                      'name',
-                      'time_zone',
-                    ]),
-                    user: {
-                      type: 'object',
-                      properties: {
-                        ...pick(User.jsonSchema.properties, ['email']),
-                      },
+      request.project = await Project.query()
+        .withGraphFetched('user')
+        .findOne({ id })
+        .throwIfNotFound()
+    })
+
+    fastify.put(
+      '/projects/:id',
+      {
+        schema: {
+          params: {
+            ...pick(Project.jsonSchema.properties, ['id']),
+          },
+          body: {
+            type: 'object',
+            properties: {
+              project: {
+                type: 'object',
+                properties: {
+                  ...pick(Project.jsonSchema.properties, ['name', 'time_zone']),
+                  allow_shared: { type: 'boolean' },
+                  user: {
+                    type: 'object',
+                    properties: {
+                      ...pick(User.jsonSchema.properties, ['email']),
                     },
                   },
                 },
               },
-              required: ['project'],
             },
-            response: {
-              200: {
-                $ref: 'project',
-              },
+            required: ['project'],
+          },
+          response: {
+            200: {
+              $ref: 'project',
             },
           },
         },
-        async (request) => {
-          const updater = new ProjectUpdater({
-            data: request.body.project,
-            project: request.project,
-          })
+      },
+      async (request) => {
+        const updater = new ProjectUpdater({
+          data: request.body.project,
+          project: request.project,
+        })
 
-          await updater.update()
+        await updater.update()
 
-          return { project: request.project }
-        }
-      )
-    })
+        return { project: request.project }
+      }
+    )
   })
 
   fastify.post(
