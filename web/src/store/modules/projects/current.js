@@ -84,5 +84,38 @@ export default {
 
       return record
     },
+    async toggleShared({ commit, state }) {
+      if (!state.record || state.status === STATUS_SAVING) {
+        return false
+      }
+
+      commit('setStatus', { status: STATUS_SAVING })
+
+      const { project: record, error } = await new API().request(
+        `/projects/${state.record.id}`,
+        {
+          method: 'PUT',
+          body: {
+            project: {
+              allow_shared: !state.record.shared_secret,
+            },
+          },
+        }
+      )
+
+      if (error) {
+        commit('setError', { error })
+      } else {
+        commit('set', {
+          record: {
+            ...state.record,
+            shared_secret: record.shared_secret,
+            updated_at: record.updated_at,
+          },
+        })
+      }
+
+      return record
+    },
   },
 }

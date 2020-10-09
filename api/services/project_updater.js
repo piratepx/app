@@ -1,3 +1,4 @@
+const generateSecret = require('@/services/generate_secret')
 const pick = require('@/lib/pick')
 const Project = require('@/models/project')
 const UserUpdater = require('@/services/user_updater')
@@ -7,7 +8,9 @@ class ProjectUpdater {
     this.data = pick(data, ['name', 'time_zone'])
     this.project = project
     this.transaction = transaction
+
     this.userData = pick(data.user, ['email'])
+    this.allowShared = data.allow_shared
   }
 
   updateUser() {
@@ -41,9 +44,15 @@ class ProjectUpdater {
       return this.updateWithTransaction()
     }
 
-    await this.project.$query(this.transaction).patch({
-      ...this.data,
-    })
+    const data = { ...this.data }
+
+    if (this.allowShared === true && !this.project.shared_secret) {
+      data.shared_secret = generateSecret()
+    } else if (this.allowShared === false) {
+      data.shared_secret = null
+    }
+
+    await this.project.$query(this.transaction).patch(data)
 
     await this.updateUser()
 

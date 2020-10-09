@@ -13,6 +13,10 @@ export default {
     ProjectIndex,
   },
   props: {
+    isShared: {
+      type: Boolean,
+      required: true,
+    },
     secret: {
       type: String,
       required: true,
@@ -25,7 +29,9 @@ export default {
     }),
   },
   created() {
-    API.defaultConfig = { token: this.secret }
+    API.defaultConfig = {
+      token: this.isShared ? `shared/${this.secret}` : this.secret,
+    }
 
     this.fetch()
   },

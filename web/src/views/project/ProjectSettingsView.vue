@@ -6,6 +6,7 @@
     :time-zones-status="timeZonesStatus"
     @update="update({ record: $event })"
     @save="save"
+    @toggle-shared="toggleShared"
   />
 </template>
 
@@ -30,7 +31,7 @@ export default {
   },
   methods: {
     ...mapMutations('projects/current', ['update']),
-    ...mapActions('projects/current', ['save']),
+    ...mapActions('projects/current', ['save', 'toggleShared']),
     ...mapActions('timeZones', {
       fetchTimeZones: 'fetch',
     }),

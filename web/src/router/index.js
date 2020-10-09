@@ -18,9 +18,28 @@ const router = createRouter({
       component: SignupIndexView,
     },
     {
+      path: '/shared/:secret',
+      component: ProjectIndexView,
+      props: (route) => ({
+        isShared: true,
+        secret: route.params.secret,
+      }),
+      children: [
+        {
+          path: 'dashboard',
+          name: 'shared/dashboard',
+          alias: '',
+          component: ProjectDashboardView,
+        },
+      ],
+    },
+    {
       path: '/:secret',
       component: ProjectIndexView,
-      props: true,
+      props: (route) => ({
+        isShared: false,
+        secret: route.params.secret,
+      }),
       children: [
         {
           path: 'dashboard',
