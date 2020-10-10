@@ -1,4 +1,4 @@
-# 🏴‍☠️px App
+<h1 align="center">🏴‍☠️<br /><br />piratepx</h1>
 
 A simple, privacy-respecting, no cookie, zero JavaScript, 35 byte counter pixel
 for websites, mobile apps, server-side APIs, CLIs, and just about anywhere else.
