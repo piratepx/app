@@ -2,6 +2,9 @@ module.exports = {
   purge: ['./src/**/*.vue'],
   theme: {
     extend: {
+      borderColor: (theme) => ({
+        default: theme('colors.gray.400'),
+      }),
       colors: {
         white: '#f1f2f4',
         gray: {

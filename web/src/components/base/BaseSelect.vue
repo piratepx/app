@@ -1,7 +1,7 @@
 <template>
   <div class="inline-block relative" :class="containerClass">
     <select
-      class="base-select block w-full appearance-none bg-transparent border-2 border-gray-400 focus:border-gray-900 outline-none rounded-none px-3 py-1"
+      class="base-select block w-full appearance-none bg-transparent border-2 focus:border-gray-900 outline-none rounded-none px-3 py-1"
       v-bind="$attrs"
       :value="modelValue"
       @change="$emit('update:modelValue', $event.target.value)"
@@ -9,7 +9,7 @@
       <slot />
     </select>
     <div
-      class="chevron pointer-events-none absolute inset-y-0 right-0 flex items-center bg-gray-100 border-2 border-gray-400 px-2 text-gray-400"
+      class="chevron pointer-events-none absolute inset-y-0 right-0 flex items-center bg-gray-100 border-2 px-2 text-gray-400"
     >
       <base-icon-chevron-bottom />
     </div>

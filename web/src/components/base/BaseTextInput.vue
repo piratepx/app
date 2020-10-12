@@ -1,6 +1,6 @@
 <template>
   <input
-    class="bg-transparent border-2 border-gray-400 focus:border-gray-900 outline-none rounded-none px-3 py-1"
+    class="bg-transparent border-2 focus:border-gray-900 outline-none rounded-none px-3 py-1"
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
   />
