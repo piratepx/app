@@ -57,5 +57,6 @@ export default {
       this.$router.push(`/${project.secret}`)
     },
   },
+  pageTitle: 'Signup',
 }
 </script>
