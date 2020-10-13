@@ -54,25 +54,49 @@ module.exports = async (fastify) => {
     },
   })
 
-  fastify.register(async (fastify) => {
-    fastify.register(authenticateProject, { allowShared: true })
-
-    fastify.get(
-      '/current',
-      {
-        schema: {
-          response: {
-            200: {
-              $ref: 'project',
+  fastify.post(
+    '/',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          properties: {
+            project: {
+              type: 'object',
+              properties: {
+                ...pick(Project.jsonSchema.properties, ['name', 'time_zone']),
+                user: {
+                  type: 'object',
+                  properties: {
+                    ...pick(User.jsonSchema.properties, ['email']),
+                  },
+                  required: ['email'],
+                },
+              },
+              required: ['name', 'time_zone', 'user'],
             },
+          },
+          required: ['project'],
+        },
+        response: {
+          201: {
+            $ref: 'project',
           },
         },
       },
-      (request) => {
-        return { project: request.currentProject }
-      }
-    )
-  })
+    },
+    async (request, reply) => {
+      const creator = new ProjectCreator({
+        data: request.body.project,
+      })
+
+      const project = await creator.create()
+
+      reply.code(201)
+
+      return { project }
+    }
+  )
 
   fastify.register(async (fastify) => {
     fastify.register(authenticateProject)
@@ -138,49 +162,23 @@ module.exports = async (fastify) => {
     )
   })
 
-  fastify.post(
-    '/',
-    {
-      schema: {
-        body: {
-          type: 'object',
-          properties: {
-            project: {
-              type: 'object',
-              properties: {
-                ...pick(Project.jsonSchema.properties, ['name', 'time_zone']),
-                user: {
-                  type: 'object',
-                  properties: {
-                    ...pick(User.jsonSchema.properties, ['email']),
-                  },
-                  required: ['email'],
-                },
-              },
-              required: ['name', 'time_zone', 'user'],
+  fastify.register(async (fastify) => {
+    fastify.register(authenticateProject, { allowShared: true })
+
+    fastify.get(
+      '/current',
+      {
+        schema: {
+          response: {
+            200: {
+              $ref: 'project',
             },
-          },
-          required: ['project'],
-        },
-        response: {
-          201: {
-            $ref: 'project',
           },
         },
       },
-    },
-    async (request, reply) => {
-      const creator = new ProjectCreator({
-        data: request.body.project,
-      })
-
-      const project = await creator.create()
-
-      reply.code(201)
-
-      return { project }
-    }
-  )
+      (request) => ({ project: request.currentProject })
+    )
+  })
 }
 
 module.exports.autoPrefix = '/api/projects'
