@@ -23,7 +23,7 @@ module.exports = async (fastify) => {
   })
 
   fastify.get(
-    '/counts',
+    '/',
     {
       schema: {
         response: {
@@ -58,3 +58,5 @@ module.exports = async (fastify) => {
     }
   )
 }
+
+module.exports.autoPrefix = '/api/counts'

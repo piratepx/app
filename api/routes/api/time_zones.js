@@ -2,7 +2,7 @@ const { getTimeZones } = require('@vvo/tzdb')
 
 module.exports = async (fastify) => {
   fastify.get(
-    '/time_zones',
+    '/',
     {
       schema: {
         response: {
@@ -37,3 +37,5 @@ module.exports = async (fastify) => {
     })
   )
 }
+
+module.exports.autoPrefix = '/api/time_zones'
