@@ -48,5 +48,8 @@ export default {
   methods: {
     ...mapActions('counts', ['fetch']),
   },
+  pageTitle() {
+    return this.currentProject.name
+  },
 }
 </script>

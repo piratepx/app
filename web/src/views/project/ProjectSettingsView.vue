@@ -36,5 +36,8 @@ export default {
       fetchTimeZones: 'fetch',
     }),
   },
+  pageTitle() {
+    return ['Settings', this.record.name]
+  },
 }
 </script>
