@@ -58,7 +58,7 @@ module.exports = async (fastify) => {
     fastify.register(authenticateProject, { allowShared: true })
 
     fastify.get(
-      '/projects/current',
+      '/current',
       {
         schema: {
           response: {
@@ -93,7 +93,7 @@ module.exports = async (fastify) => {
     })
 
     fastify.put(
-      '/projects/:id',
+      '/:id',
       {
         schema: {
           params: {
@@ -139,7 +139,7 @@ module.exports = async (fastify) => {
   })
 
   fastify.post(
-    '/projects',
+    '/',
     {
       schema: {
         body: {
@@ -182,3 +182,5 @@ module.exports = async (fastify) => {
     }
   )
 }
+
+module.exports.autoPrefix = '/api/projects'
