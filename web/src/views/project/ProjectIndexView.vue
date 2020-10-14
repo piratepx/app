@@ -30,7 +30,8 @@ export default {
   },
   created() {
     API.defaultConfig = {
-      token: this.isShared ? `shared/${this.secret}` : this.secret,
+      isSharedSecret: this.isShared,
+      secret: this.secret,
     }
 
     this.fetch()

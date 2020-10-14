@@ -27,13 +27,17 @@ class API {
   }
 
   buildAuthorizationHeader() {
-    const token = this.config.token
+    let secret = this.config.secret
 
-    if (!token) {
+    if (!secret) {
       return null
     }
 
-    return { Authorization: `Bearer ${token}` }
+    if (this.config.isSharedSecret) {
+      secret = `shared/${secret}`
+    }
+
+    return { Authorization: `Bearer ${secret}` }
   }
 
   async request(path, { headers, body, ...options } = {}) {
@@ -53,7 +57,8 @@ class API {
 }
 
 API.defaultConfig = {
-  token: null,
+  isSharedSecret: false,
+  secret: null,
   url: import.meta.env.VITE_API_URL,
 }
 
