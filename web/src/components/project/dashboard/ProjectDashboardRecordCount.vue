@@ -2,7 +2,7 @@
   <li class="flex-1" :title="countFormattedLong">
     <div
       v-if="record"
-      class="h-20 mx-1 bg-gradient-to-b from-gray-900 to-gray-200"
+      class="h-20 mx-1 bg-gradient-to-b from-gray-900 to-gray-400"
     >
       <div
         v-if="barHeightPercent > 0"
