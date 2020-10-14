@@ -1,25 +1,25 @@
 <template>
   <li class="flex-1" :title="countFormattedLong">
-    <template v-if="record">
-      <div class="h-20 mx-1 bg-gradient-to-b from-gray-900 to-gray-200">
-        <div
-          v-if="barHeightPercent > 0"
-          class="h-5 bg-gray-100"
-          :style="{ height: `${barHeightInversePercent}%` }"
-        />
-      </div>
-      <div class="text-center text-xs border-t border-gray-200 py-1">
-        {{ countFormattedShort }}
-      </div>
-    </template>
-    <template v-if="!record">
-      <div class="h-20 mx-1" />
+    <div
+      v-if="record"
+      class="h-20 mx-1 bg-gradient-to-b from-gray-900 to-gray-200"
+    >
       <div
-        class="text-center text-xs text-gray-200 border-t border-gray-200 py-1"
-      >
-        {{ countFormattedShort }}
-      </div>
-    </template>
+        v-if="barHeightPercent > 0"
+        class="h-5 bg-gray-100"
+        :style="{ height: `${barHeightInversePercent}%` }"
+      />
+    </div>
+    <div v-if="!record" class="h-20 mx-1" />
+    <div
+      class="text-center text-xs border-t border-gray-200 py-1"
+      :class="{
+        'font-semibold': isToday,
+        'text-gray-200': !isToday && !record,
+      }"
+    >
+      {{ countFormattedShort }}
+    </div>
   </li>
 </template>
 
@@ -28,6 +28,10 @@ import { formatNumberLong, formatNumberShort } from '/@/services/format_number'
 
 export default {
   props: {
+    isToday: {
+      type: Boolean,
+      default: false,
+    },
     maxCount: {
       type: Number,
       default: 100,

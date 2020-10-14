@@ -4,7 +4,12 @@
     :scroll-left="scrollLeft"
     @scroll="$emit('scroll', $event)"
   >
-    <li v-for="date of datesFormatted" :key="date" class="flex-1">
+    <li
+      v-for="(date, index) of datesFormatted"
+      :key="date"
+      class="flex-1"
+      :class="{ 'font-semibold': index === 0 }"
+    >
       {{ date }}
     </li>
   </project-dashboard-scrollable>

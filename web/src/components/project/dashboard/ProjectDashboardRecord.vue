@@ -7,8 +7,9 @@
       @scroll="$emit('scroll', $event)"
     >
       <project-dashboard-record-count
-        v-for="date of dates"
+        v-for="(date, index) of dates"
         :key="date.getTime()"
+        :is-today="index === 0"
         :max-count="maxCount"
         :record="findRecord(date)"
       />
