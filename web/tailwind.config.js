@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ['./src/**/*.vue'],
+  purge: ['./index.html', './src/**/*.vue'],
   theme: {
     extend: {
       borderColor: (theme) => ({
