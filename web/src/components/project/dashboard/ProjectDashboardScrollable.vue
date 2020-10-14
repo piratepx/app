@@ -5,7 +5,7 @@
     :style="{ direction: 'rtl' }"
     @scroll="$emit('scroll', $event)"
   >
-    <ol class="flex" :style="{ minWidth: '1024px' }">
+    <ol class="flex" :style="{ minWidth: '1100px' }">
       <slot />
     </ol>
   </div>
