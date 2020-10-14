@@ -3,6 +3,7 @@
     <div class="max-w-lg mx-auto">
       <project-form
         :record="record"
+        save-text="Sign Up"
         :status="status"
         :time-zones="timeZones"
         :time-zones-status="timeZonesStatus"

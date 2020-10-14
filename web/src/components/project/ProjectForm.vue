@@ -57,9 +57,9 @@
         @update:model-value="$emit('update', { user: { email: $event } })"
       />
     </label>
-    <base-button type="submit" primary :disabled="isSaveDisabled"
-      >Save</base-button
-    >
+    <base-button type="submit" primary :disabled="isSaveDisabled">{{
+      saveText
+    }}</base-button>
   </form>
 </template>
 
@@ -85,6 +85,10 @@ export default {
     record: {
       type: Object,
       required: true,
+    },
+    saveText: {
+      type: String,
+      default: 'Save',
     },
     status: {
       type: String,
