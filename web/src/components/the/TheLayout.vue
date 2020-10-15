@@ -20,5 +20,16 @@
     <main>
       <slot />
     </main>
+    <the-piratepx class="absolute right-0 bottom-0" />
   </div>
 </template>
+
+<script>
+import ThePiratepx from '/@/components/the/ThePiratepx.vue'
+
+export default {
+  components: {
+    ThePiratepx,
+  },
+}
+</script>

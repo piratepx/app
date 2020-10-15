@@ -57,15 +57,4 @@ const router = createRouter({
   ],
 })
 
-if (import.meta.env.MODE === 'production') {
-  router.afterEach((to) => {
-    const query = new URLSearchParams({
-      p: '7aeb3ca2-ca76-49ec-ad27-24f0d380a545',
-      i: to.name,
-    })
-
-    fetch(`https://app.piratepx.com/ship?${query.toString()}`)
-  })
-}
-
 export default router
