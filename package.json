@@ -25,32 +25,32 @@
     "start": "fastify start --log-level=info ./api/app.js"
   },
   "dependencies": {
-    "@bugsnag/js": "^7.4.0",
-    "@vvo/tzdb": "^6.2.0",
+    "@bugsnag/js": "^7.5.1",
+    "@vvo/tzdb": "^6.3.0",
     "cron": "^1.7.2",
     "dotenv": "^8.2.0",
-    "fastify": "^3.7.0",
-    "fastify-autoload": "^3.3.0",
+    "fastify": "^3.8.0",
+    "fastify-autoload": "^3.3.1",
     "fastify-bearer-auth": "^5.0.2",
-    "fastify-cli": "^2.5.0",
-    "fastify-cors": "^4.1.0",
+    "fastify-cli": "^2.5.1",
+    "fastify-cors": "^5.0.0",
     "fastify-plugin": "^3.0.0",
     "fastify-static": "^3.3.0",
-    "knex": "^0.21.6",
+    "knex": "^0.21.12",
     "luxon": "^1.25.0",
     "module-alias": "^2.2.2",
     "objection": "^2.2.3",
-    "pg": "^8.4.1"
+    "pg": "^8.5.1"
   },
   "devDependencies": {
     "@release-it/bumper": "^2.0.0",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.13.0",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.22.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "2.1.2",
-    "release-it": "^14.2.0"
+    "prettier": "2.2.0",
+    "release-it": "^14.2.1"
   },
   "engines": {
     "node": "14.x",
