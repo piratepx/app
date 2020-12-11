@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="font-semibold mb-1">{{ identifier }}</h2>
+    <h2 class="font-semibold break-words mb-1">{{ identifier }}</h2>
     <project-dashboard-scrollable
       class="pb-3"
       :scroll-left="scrollLeft"
