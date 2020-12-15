@@ -45,19 +45,23 @@ class Project extends BaseModel {
         },
         name: {
           type: 'string',
+          minLength: 1,
           maxLength: 255,
         },
         time_zone: {
           type: 'string',
+          minLength: 1,
           maxLength: 255,
           enum: timeZonesNames,
         },
         secret: {
           type: 'string',
+          minLength: 1,
           maxLength: 255,
         },
         shared_secret: {
           type: ['string', 'null'],
+          minLength: 1,
           maxLength: 255,
         },
         created_at: {
