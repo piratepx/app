@@ -1,6 +1,7 @@
 <template>
   <project-dashboard-scrollable
     class="sticky top-0 bg-gray-100 mb-5 border-b border-gray-900 py-3 text-center text-xs"
+    :scroll-id="scrollId"
     :scroll-left="scrollLeft"
     @scroll="$emit('scroll', $event)"
   >
@@ -30,6 +31,10 @@ export default {
     dates: {
       type: Array,
       required: true,
+    },
+    scrollId: {
+      type: Number,
+      default: null,
     },
     scrollLeft: {
       type: Number,

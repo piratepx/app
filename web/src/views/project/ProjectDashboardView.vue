@@ -4,9 +4,10 @@
     :dates="dates"
     :max-count="maxCount"
     :records="recordsGroupedAndSorted"
+    :scroll-id="scrollId"
     :scroll-left="scrollLeft"
     :status="status"
-    @scroll="scrollLeft = $event.target.scrollLeft"
+    @scroll="scroll"
   />
 </template>
 
@@ -21,6 +22,7 @@ export default {
   },
   data() {
     return {
+      scrollId: null,
       scrollLeft: 0,
     }
   },
@@ -47,6 +49,10 @@ export default {
   },
   methods: {
     ...mapActions('counts', ['fetch']),
+    scroll({ scrollId, scrollLeft }) {
+      this.scrollId = scrollId
+      this.scrollLeft = scrollLeft
+    },
   },
   pageTitle() {
     return this.currentProject.name

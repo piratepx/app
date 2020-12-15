@@ -16,6 +16,7 @@
       <project-dashboard-header
         :current-project="currentProject"
         :dates="dates"
+        :scroll-id="scrollId"
         :scroll-left="scrollLeft"
         @scroll="$emit('scroll', $event)"
       />
@@ -28,6 +29,7 @@
           :identifier="identifier"
           :max-count="maxCount"
           :records="identifierRecords"
+          :scroll-id="scrollId"
           :scroll-left="scrollLeft"
           @scroll="$emit('scroll', $event)"
         />
@@ -67,6 +69,10 @@ export default {
     },
     records: {
       type: Map,
+      default: null,
+    },
+    scrollId: {
+      type: Number,
       default: null,
     },
     scrollLeft: {
