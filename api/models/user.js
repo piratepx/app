@@ -31,6 +31,7 @@ class User extends BaseModel {
         email: {
           type: 'string',
           format: 'email',
+          minLength: 1,
           maxLength: 255,
         },
         created_at: {
