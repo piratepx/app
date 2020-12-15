@@ -9,7 +9,10 @@ module.exports = async (error, request, reply) => {
   }
 
   if (reply.statusCode >= 500) {
-    bugsnag.notify(error)
+    if (bugsnag) {
+      bugsnag.notify(error)
+    }
+
     reply.log.error({ req: request, res: reply, err: error }, error.message)
   } else if (reply.statusCode >= 400) {
     reply.log.info({ res: reply, err: error }, error.message)

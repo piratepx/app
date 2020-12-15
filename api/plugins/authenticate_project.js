@@ -28,7 +28,9 @@ module.exports = fp(async (fastify, { allowShared = false }) => {
         return false
       }
 
-      bugsnag.setUser(project.id, project.user.email, project.name)
+      if (bugsnag) {
+        bugsnag.setUser(project.id, project.user.email, project.name)
+      }
 
       project.is_shared = isShared
 
