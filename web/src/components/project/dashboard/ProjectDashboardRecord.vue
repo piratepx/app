@@ -3,6 +3,7 @@
     <h2 class="font-semibold break-words mb-1">{{ identifier }}</h2>
     <project-dashboard-scrollable
       class="pb-3"
+      :scroll-id="scrollId"
       :scroll-left="scrollLeft"
       @scroll="$emit('scroll', $event)"
     >
@@ -47,6 +48,10 @@ export default {
     records: {
       type: Map,
       required: true,
+    },
+    scrollId: {
+      type: Number,
+      default: null,
     },
     scrollLeft: {
       type: Number,
