@@ -20,6 +20,7 @@ module.exports = async (fastify) => {
       reply.setHeader('X-Content-Type-Options', 'nosniff')
       reply.setHeader('X-Frame-Options', 'DENY')
       reply.setHeader('X-XSS-Protection', '1; mode=block')
+      reply.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
     },
   })
 
