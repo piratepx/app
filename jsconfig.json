@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "es2020",
+    "baseUrl": ".",
+    "paths": {
+      "#api/*": ["./api/*"]
+    }
+  },
+  "include": ["./api/**/*"]
+}

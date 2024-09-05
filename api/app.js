@@ -1,28 +1,33 @@
-const path = require('path')
+import { join } from 'node:path'
 
-const AutoLoad = require('fastify-autoload')
+import autoLoad from '@fastify/autoload'
 
-const initializers = require('./initializers')
+import initializers from '#api/initializers/index'
 
-require('@/services/bugsnag')
+import { apiDir } from '#api/lib/paths'
+import cronJobScheduler from '#api/services/cron_job_scheduler'
+import errorHandler, { errorSchema } from '#api/services/errors/error_handler'
 
-const errorHandler = require('@/plugins/error_handler')
-const scheduleCronJobs = require('@/services/schedule_cron_jobs')
-
-module.exports = async (fastify, opts) => {
+// eslint-disable-next-line no-unused-vars
+async function app(fastify, options) {
   await initializers()
 
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'plugins', 'common'),
-    options: { ...opts },
-  })
-
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'routes'),
-    options: { ...opts },
-  })
-
+  fastify.addSchema(errorSchema)
   fastify.setErrorHandler(errorHandler)
 
-  scheduleCronJobs()
+  await fastify.register(autoLoad, {
+    dir: join(apiDir, 'plugins'),
+    encapsulate: false,
+  })
+
+  fastify.register(autoLoad, {
+    dir: join(apiDir, 'routes'),
+    autoHooks: true,
+    cascadeHooks: true,
+    routeParams: true,
+  })
+
+  cronJobScheduler()
 }
+
+export default app

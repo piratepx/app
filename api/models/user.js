@@ -1,55 +1,48 @@
-const BaseModel = require('@/models/base')
+import BaseModel from '#api/models/base'
+import Project from '#api/models/project'
 
 class User extends BaseModel {
-  static get tableName() {
-    return 'users'
-  }
+  static tableName = 'users'
 
-  static get relationMappings() {
-    const Project = require('@/models/project')
-
-    return {
-      projects: {
-        relation: this.HasManyRelation,
-        modelClass: Project,
-        join: {
-          from: 'users.id',
-          to: 'projects.user_id',
-        },
+  static relationMappings = () => ({
+    projects: {
+      relation: this.HasManyRelation,
+      modelClass: Project,
+      join: {
+        from: 'users.id',
+        to: 'projects.user_id',
       },
-    }
-  }
+    },
+  })
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      properties: {
-        id: {
-          type: 'string',
-          format: 'uuid',
-        },
-        email: {
-          type: 'string',
-          format: 'email',
-          minLength: 1,
-          maxLength: 255,
-        },
-        created_at: {
-          type: 'string',
-          format: 'date-time',
-        },
-        updated_at: {
-          type: 'string',
-          format: 'date-time',
-        },
+  static jsonSchema = {
+    type: 'object',
+    properties: {
+      id: {
+        type: 'string',
+        format: 'uuid',
       },
-      required: ['email'],
-    }
+      email: {
+        type: 'string',
+        format: 'email',
+        minLength: 1,
+        maxLength: 255,
+      },
+      created_at: {
+        type: 'string',
+        format: 'date-time',
+      },
+      updated_at: {
+        type: 'string',
+        format: 'date-time',
+      },
+    },
+    required: ['email'],
   }
 
-  async beforeSaveValidation(opt) {
-    await this.validateUniqueness('email', opt)
+  async beforeSaveValidation(opt, queryContext) {
+    await this.validateUniqueness('email', opt, queryContext)
   }
 }
 
-module.exports = User
+export default User

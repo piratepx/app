@@ -1,4 +1,4 @@
-module.exports = (obj, keys) => {
+function pick(obj, keys) {
   if (!obj) {
     return null
   }
@@ -13,3 +13,5 @@ module.exports = (obj, keys) => {
 
   return picked
 }
+
+export default pick

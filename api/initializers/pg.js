@@ -1,7 +1,9 @@
-const { types } = require('pg')
+import pg from 'pg'
 
-module.exports = () => {
+function initializePG() {
   // Parse date type as string instead of Date to prevent time zone conversion.
   // See: https://github.com/brianc/node-postgres/issues/1844
-  types.setTypeParser(1082, (date) => date)
+  pg.types.setTypeParser(1082, (date) => date)
 }
+
+export default initializePG

@@ -1,10 +1,11 @@
-require('dotenv').config()
-require('module-alias/register')
+import 'dotenv/config'
 
-const objection = require('@/initializers/objection')
-const pg = require('@/initializers/pg')
+import initializeObjection from '#api/initializers/objection'
+import initializePG from '#api/initializers/pg'
 
-module.exports = async () => {
-  pg()
-  await objection()
+async function initializers() {
+  initializePG()
+  await initializeObjection()
 }
+
+export default initializers

@@ -15,7 +15,7 @@ there to make this possible, however, they're pretty much separate codebases.
 ### Backend
 
 The backend is a JSON REST API built in [Node.js](https://nodejs.org/) using
-[Fastify](https://www.fastify.io/) and
+[Fastify](https://www.fastify.dev/) and
 [Objection.js](https://vincit.github.io/objection.js/). It persists data to a
 [PostgreSQL](https://www.postgresql.org/) database.
 
@@ -40,14 +40,13 @@ development, with a focus on backend-specific details. See
 
 - [Node.js](https://nodejs.org/) (see `engines.node` in
   [`package.json`](package.json))
-- [PostgreSQL](https://www.postgresql.org/) >= v11
+- [PostgreSQL](https://www.postgresql.org/) >= v16
 
 [Docker Compose](https://docs.docker.com/compose/) is used to run PostgreSQL as
-configured in [`docker-compose.yml`](docker-compose.yml). Once installed, simply
-run:
+configured in [`compose.yaml`](compose.yaml). Once installed, simply run:
 
 ```bash
-$ docker-compose up
+$ docker compose up
 ```
 
 The app itself is not run in a Docker container in development, as it's easy
@@ -77,18 +76,10 @@ See [`.env.dist`](.env.dist) for an example.
 
 ### Database
 
-#### Create
-
-Ensure PostgreSQL is running, then:
-
-```bash
-$ npm run dev:db:create
-```
-
 #### Migrations
 
-[Knex.js](https://knexjs.org/#Migrations) is used to manage database migrations,
-which are located in [`api/db/migrations`](api/db/migrations).
+[Knex.js](https://knexjs.org/guide/migrations.html) is used to manage database
+migrations, which are located in [`api/db/migrations`](api/db/migrations).
 
 To run the latest migrations:
 
@@ -106,15 +97,15 @@ $ npm run dev
 
 ### Code Style & Linting
 
-[Prettier](https://prettier.com/) is setup to enforce a consistent code style.
+[Prettier](https://prettier.io/) is setup to enforce a consistent code style.
 It's highly recommended to
 [add an integration to your editor](https://prettier.io/docs/en/editors.html)
 that automatically formats on save.
 
 [ESLint](https://eslint.org/) is setup with the
-["recommended" rules](https://eslint.org/docs/rules/) to enforce a level of code
-quality. It's also highly recommended to
-[add an integration to your editor](https://eslint.org/docs/user-guide/integrations#editors)
+["recommended" rules](https://eslint.org/docs/latest/rules/) to enforce a level
+of code quality. It's also highly recommended to
+[add an integration to your editor](https://eslint.org/docs/latest/use/integrations#editors)
 that automatically formats on save.
 
 To run via the command line:

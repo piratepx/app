@@ -1,9 +1,11 @@
-const { Model } = require('objection')
+import { Model } from 'objection'
 
-const db = require('@/db')
+import db from '#api/db/index'
 
-module.exports = () => {
+async function initializeObjection() {
   Model.knex(db)
 
-  return db.raw("SELECT 'Hello?'")
+  await db.raw("SELECT 'Hello?'")
 }
+
+export default initializeObjection

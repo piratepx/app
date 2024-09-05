@@ -1,5 +1,5 @@
-exports.up = (knex) =>
-  knex.schema.createTable('users', (t) => {
+async function up(knex) {
+  return await knex.schema.createTable('users', (t) => {
     t.uuid('id')
       .defaultTo(knex.raw('uuid_generate_v4()'))
       .notNullable()
@@ -8,5 +8,10 @@ exports.up = (knex) =>
     t.datetime('created_at').notNullable()
     t.datetime('updated_at').notNullable()
   })
+}
 
-exports.down = (knex) => knex.schema.dropTable('users')
+async function down(knex) {
+  return await knex.schema.dropTable('users')
+}
+
+export { up, down }
