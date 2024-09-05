@@ -1,62 +1,63 @@
 {
   "name": "piratepx-app",
   "version": "0.3.7",
+  "type": "module",
   "private": true,
   "description": "Just a little analytics insight for your personal or indie project",
   "homepage": "https://app.piratepx.com",
   "bugs": "https://github.com/piratepx/app/issues",
   "license": "MIT",
-  "repository": "piratepx/app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piratepx/app.git"
+  },
   "scripts": {
     "build": "cd web && npm install && npm run build",
-    "dev": "run-p dev:api dev:web",
+    "dev": "npm run dev:api & npm run dev:web",
     "dev:api": "fastify start --watch --ignore-watch=web --log-level=info --pretty-logs ./api/app.js",
-    "dev:db:create": "docker-compose exec postgres createdb -U postgres piratepx_development",
-    "dev:db:drop": "docker-compose exec postgres dropdb -U postgres piratepx_development",
-    "dev:db:psql": "docker-compose exec postgres psql -U postgres",
+    "dev:db:create": "docker compose exec postgres createdb -U postgres piratepx_development",
+    "dev:db:drop": "docker compose exec postgres dropdb -U postgres piratepx_development",
+    "dev:db:psql": "docker compose exec postgres psql -U postgres",
     "dev:web": "cd web && npm run dev",
-    "knex": "node -r ./api/initializers ./node_modules/.bin/knex --knexfile ./api/db/config.js",
-    "lint": "run-p lint:*",
+    "knex": "node -r dotenv/config ./node_modules/.bin/knex --knexfile ./api/db/config.js",
+    "lint": "npm run lint:format && npm run lint:quality",
     "lint:format": "prettier --check .",
     "lint:format:fix": "prettier --write .",
     "lint:quality": "eslint .",
     "lint:quality:fix": "eslint --fix .",
-    "release": "release-it",
+    "release": "release-it --only-version",
     "start": "fastify start --log-level=info ./api/app.js"
   },
   "dependencies": {
-    "@bugsnag/js": "^7.5.4",
-    "@vvo/tzdb": "^6.3.0",
-    "cron": "^1.7.2",
-    "dotenv": "^8.2.0",
-    "fastify": "^3.9.1",
-    "fastify-autoload": "^3.3.1",
-    "fastify-bearer-auth": "^5.0.2",
-    "fastify-cli": "^2.5.1",
-    "fastify-cors": "^5.1.0",
-    "fastify-plugin": "^3.0.0",
-    "fastify-static": "^3.3.0",
-    "knex": "^0.21.12",
-    "luxon": "^1.25.0",
-    "module-alias": "^2.2.2",
-    "objection": "^2.2.3",
-    "pg": "^8.5.1"
+    "@fastify/autoload": "^5.10.0",
+    "@fastify/bearer-auth": "^9.4.0",
+    "@fastify/cors": "^9.0.1",
+    "@fastify/static": "^7.0.4",
+    "@vvo/tzdb": "^6.145.0",
+    "cron": "^3.1.7",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "fastify-cli": "^6.3.0",
+    "knex": "^3.1.0",
+    "luxon": "^3.5.0",
+    "objection": "^3.1.4",
+    "pg": "^8.12.0"
   },
   "devDependencies": {
-    "@release-it/bumper": "^2.0.0",
-    "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.22.1",
-    "npm-run-all": "^4.1.5",
-    "prettier": "2.2.1",
-    "release-it": "^14.2.2"
+    "@eslint/js": "^9.10.0",
+    "@release-it/bumper": "^6.0.1",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-n": "^17.10.2",
+    "globals": "^15.9.0",
+    "prettier": "3.3.3",
+    "release-it": "^17.6.0"
   },
   "engines": {
-    "node": "14.x",
-    "npm": "6.x"
+    "node": "22.x",
+    "npm": "10.x"
   },
-  "_moduleAliases": {
-    "@": "api"
+  "imports": {
+    "#api/*": "./api/*.js"
   }
 }

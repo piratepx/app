@@ -1,9 +1,15 @@
+import { env } from 'node:process'
+
 const defaults = {
   client: 'pg',
-  connection: process.env.DATABASE_URL,
+  connection: env.DATABASE_URL,
+  pool: {
+    min: 0,
+    max: 10,
+  },
 }
 
-module.exports = {
+const config = {
   development: {
     ...defaults,
     debug: true,
@@ -12,3 +18,5 @@ module.exports = {
     ...defaults,
   },
 }
+
+export default config

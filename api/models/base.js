@@ -1,4 +1,4 @@
-const { Model } = require('objection')
+import { Model } from 'objection'
 
 class BaseModel extends Model {
   async $beforeInsert(queryContext) {
@@ -9,7 +9,7 @@ class BaseModel extends Model {
     this.created_at = date
     this.updated_at = date
 
-    await this.beforeSaveValidation(null)
+    await this.beforeSaveValidation(null, queryContext)
   }
 
   async $beforeUpdate(opt, queryContext) {
@@ -17,10 +17,11 @@ class BaseModel extends Model {
 
     this.updated_at = new Date().toISOString()
 
-    await this.beforeSaveValidation(opt)
+    await this.beforeSaveValidation(opt, queryContext)
   }
 
-  async beforeSaveValidation(/* opt */) {}
+  // eslint-disable-next-line no-unused-vars
+  async beforeSaveValidation(opt, queryContext) {}
 
   values(fieldOrFields) {
     const fields = Array.isArray(fieldOrFields)
@@ -32,29 +33,29 @@ class BaseModel extends Model {
         ...accumulator,
         [field]: this[field],
       }),
-      {}
+      {},
     )
   }
 
-  static async isUnique(...whereArgs) {
-    const model = await this.query().findOne(...whereArgs)
+  static async isUnique(where, transaction = null) {
+    const model = await this.query(transaction).findOne(where)
 
     return !model
   }
 
-  async validateUniqueness(fieldOrFields, opt = null) {
+  async validateUniqueness(fieldOrFields, opt, queryContext) {
     const values = this.values(fieldOrFields)
     const fields = Object.keys(values)
 
     const everyValueEmpty = Object.values(values).every(
-      (value) => value === undefined || value === null
+      (value) => value === undefined || value === null,
     )
 
     if (everyValueEmpty) {
       return true
     }
 
-    const id = opt && opt.old && opt.old.id
+    const id = opt?.old?.id
 
     const isUnique = await this.constructor.isUnique((builder) => {
       builder.where(values)
@@ -62,7 +63,7 @@ class BaseModel extends Model {
       if (id) {
         builder.whereNot('id', id)
       }
-    })
+    }, queryContext.transaction)
 
     if (!isUnique) {
       throw this.buildValidationError(fields.join(' + '), 'already exists')
@@ -83,7 +84,7 @@ class BaseModel extends Model {
   static async findOneOrInsert(
     findOneWhere,
     insertModelOrObject = null,
-    transaction = null
+    transaction = null,
   ) {
     let model = await this.query(transaction).findOne(findOneWhere)
 
@@ -107,4 +108,4 @@ class BaseModel extends Model {
   }
 }
 
-module.exports = BaseModel
+export default BaseModel

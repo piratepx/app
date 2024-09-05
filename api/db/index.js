@@ -1,5 +1,8 @@
-const Knex = require('knex')
+import Knex from 'knex'
+import { env } from 'node:process'
 
-const config = require('@/db/config')
+import config from '#api/db/config'
 
-module.exports = Knex(config[process.env.NODE_ENV])
+const db = Knex(config[env.NODE_ENV])
+
+export default db
