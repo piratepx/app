@@ -1,5 +1,5 @@
 export default async (fastify) => {
-  fastify.get('/', async () => {
+  fastify.get('/', { logLevel: 'silent' }, async () => {
     return
   })
 }
